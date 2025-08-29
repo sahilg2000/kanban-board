@@ -1,0 +1,6 @@
+query GetContries {
+    countries {
+        code
+        name
+    }
+}
