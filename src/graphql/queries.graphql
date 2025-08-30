@@ -1,6 +1,6 @@
 query GetContries {
-    countries {
-        code
-        name
-    }
+  countries {
+    code
+    name
+  }
 }
