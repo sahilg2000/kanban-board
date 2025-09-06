@@ -1,0 +1,43 @@
+query GetBoardColumns($board_id: uuid!) {
+    columns(
+        where: { board_id: { _eq: $board_id } }
+        order_by: { position: asc }
+    ) {
+        id
+        name
+        position
+        cards(order_by: { position: asc }) {
+            id
+            title
+            description
+            position
+        }
+    }
+}
+
+mutation CreateColumn($board_id: uuid!, $name: String!, $position: float8!) {
+    insert_columns_one(
+        object: { board_id: $board_id, name: $name, position: $position }
+    ) {
+        id
+        name
+        position
+    }
+}
+
+mutation UpdateColumn($id: uuid!, $name: String, $position: float8) {
+    update_columns_by_pk(
+        pk_columns: { id: $id }
+        _set: { name: $name, position: $position }
+    ) {
+        id
+        name
+        position
+    }
+}
+
+mutation DeleteColumn($id: uuid!) {
+    delete_columns_by_pk(id: $id) {
+        id
+    }
+}
