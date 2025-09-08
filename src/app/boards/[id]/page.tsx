@@ -1,9 +1,9 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useBoards } from "@/hooks/useBoards";
-import type { Board } from "@/hooks/useBoards";
+import { useBoards, type Board } from "@/hooks/useBoards";
+import { ColumnsList } from "@/components/columns/ColumnsList";
 
-export default function BoardPage() {
+export default function BoardByIdPage() {
     const { id } = useParams<{ id: string }>();
     const { data, error, loading } = useBoards();
     const board = data?.find((b: Board) => b.id === id);
@@ -12,9 +12,9 @@ export default function BoardPage() {
     if (loading) return <p>Loading ...</p>;
     if (!board) return <p>Not found.</p>;
     return (
-        <div>
-            <h1>{board.name}</h1>
-            {/* Space for upcoming column cards*/}
+        <div className="p-4">
+            <h1 className="text-xl font-semibold mb-4">{board.name}</h1>
+            <ColumnsList boardId={id} />
         </div>
     );
 }

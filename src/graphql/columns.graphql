@@ -8,7 +8,7 @@ query GetBoardColumns($board_id: uuid!) {
         position
         cards(order_by: { position: asc }) {
             id
-            title
+            name
             description
             position
         }

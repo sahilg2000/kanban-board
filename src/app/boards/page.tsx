@@ -10,7 +10,7 @@ export default function BoardsPage() {
         <ul>
             {data.map(
                 (
-                    b: Board // type b
+                    b: Board // type Board
                 ) => (
                     <li key={b.id}>
                         <a href={`/boards/${b.id}`}>{b.name}</a>
