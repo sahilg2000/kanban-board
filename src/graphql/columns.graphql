@@ -25,13 +25,21 @@ mutation CreateColumn($board_id: uuid!, $name: String!, $position: float8!) {
     }
 }
 
-mutation UpdateColumn($id: uuid!, $name: String, $position: float8) {
-    update_columns_by_pk(
-        pk_columns: { id: $id }
-        _set: { name: $name, position: $position }
-    ) {
+mutation UpdateColumnInfo($id: uuid!, $name: String!) {
+    update_columns_by_pk(pk_columns: { id: $id }, _set: { name: $name }) {
         id
         name
+        position
+        board_id
+    }
+}
+
+mutation UpdateColumnPosition($id: uuid!, $position: float8!) {
+    update_columns_by_pk(
+        pk_columns: { id: $id }
+        _set: { position: $position }
+    ) {
+        id
         position
     }
 }

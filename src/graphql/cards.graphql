@@ -33,21 +33,23 @@ mutation CreateCard(
     }
 }
 
-mutation UpdateCard(
-    $id: uuid!
-    $name: String
-    $position: float8
-    $description: String
-) {
+mutation UpdateCardInfo($id: uuid!, $name: String, $description: String) {
     update_cards_by_pk(
         pk_columns: { id: $id }
-        _set: { name: $name, position: $position, description: $description }
+        _set: { name: $name, description: $description }
     ) {
         id
         name
         description
         position
         column_id
+    }
+}
+
+mutation UpdateCardPosition($id: uuid!, $position: float8!) {
+    update_cards_by_pk(pk_columns: { id: $id }, _set: { position: $position }) {
+        id
+        position
     }
 }
 

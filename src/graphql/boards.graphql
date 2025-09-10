@@ -18,3 +18,16 @@ mutation CreateBoard($name: String!) {
         name
     }
 }
+
+mutation UpdateBoard($id: uuid!, $name: String!) {
+    update_boards_by_pk(pk_columns: { id: $id }, _set: { name: $name }) {
+        id
+        name
+    }
+}
+
+mutation DeleteBoard($id: uuid!) {
+    delete_boards_by_pk(id: $id) {
+        id
+    }
+}
