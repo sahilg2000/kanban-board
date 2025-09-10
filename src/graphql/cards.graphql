@@ -14,7 +14,7 @@ query CardsByColumn($column_id: uuid!) {
 mutation CreateCard(
     $column_id: uuid!
     $name: String!
-    $position: float8!
+    $position: Int!
     $description: String
 ) {
     insert_cards_one(
@@ -46,15 +46,20 @@ mutation UpdateCardInfo($id: uuid!, $name: String, $description: String) {
     }
 }
 
-mutation UpdateCardPosition($id: uuid!, $position: float8!) {
+mutation UpdateCardPosition($id: uuid!, $position: Int!) {
     update_cards_by_pk(pk_columns: { id: $id }, _set: { position: $position }) {
         id
         position
     }
 }
 
-mutation DeleteCard($id: uuid!) {
-    delete_cards_by_pk(id: $id) {
+mutation MoveCard($id: uuid!, $column_id: uuid!, $position: Int!) {
+    update_cards_by_pk(
+        pk_columns: { id: $id }
+        _set: { column_id: $column_id, position: $position }
+    ) {
         id
+        column_id
+        position
     }
 }

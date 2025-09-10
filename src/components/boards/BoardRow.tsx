@@ -8,10 +8,17 @@ import {
     type BoardsListQuery,
 } from "@/graphql/generated";
 import DropdownMenu from "@/components/shared/DropdownMenu";
+import { Draggable } from "@hello-pangea/dnd";
 
 type Board = BoardsListQuery["boards"][number];
 
-export default function BoardRow({ board }: { board: Board }) {
+export default function BoardRow({
+    board,
+    index,
+}: {
+    board: Board;
+    index: number;
+}) {
     const [editing, setEditing] = useState(false);
     const [name, setName] = useState(board.name);
 
@@ -28,49 +35,67 @@ export default function BoardRow({ board }: { board: Board }) {
 
     if (editing) {
         return (
-            <li className="border rounded p-2 bg-white flex gap-2 items-center">
-                <input
-                    className="border rounded px-2 py-1 flex-1"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    autoFocus
-                />
-                <button
-                    className="border rounded px-3 py-1"
-                    onClick={async () => {
-                        await updateBoard({
-                            variables: { id: board.id, name },
-                        });
-                        setEditing(false);
-                    }}
-                    disabled={saving}
-                >
-                    {saving ? "Saving…" : "Save"}
-                </button>
-                <button
-                    className="border rounded px-3 py-1"
-                    onClick={() => {
-                        setName(board.name);
-                        setEditing(false);
-                    }}
-                >
-                    Cancel
-                </button>
-            </li>
+            <Draggable draggableId={board.id} index={index}>
+                {(provided) => (
+                    <li
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className="border rounded p-2 bg-white flex gap-2 items-center"
+                    >
+                        <input
+                            className="border rounded px-2 py-1 flex-1"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            autoFocus
+                        />
+                        <button
+                            className="border rounded px-3 py-1"
+                            onClick={async () => {
+                                await updateBoard({
+                                    variables: { id: board.id, name },
+                                });
+                                setEditing(false);
+                            }}
+                            disabled={saving}
+                        >
+                            {saving ? "Saving…" : "Save"}
+                        </button>
+                        <button
+                            className="border rounded px-3 py-1"
+                            onClick={() => {
+                                setName(board.name);
+                                setEditing(false);
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    </li>
+                )}
+            </Draggable>
         );
     }
 
     return (
-        <li className="border rounded p-2 bg-white flex items-center justify-between">
-            <a href={`/boards/${board.id}`} className="font-medium">
-                {board.name}
-            </a>
-            <DropdownMenu
-                onEdit={() => setEditing(true)}
-                onDelete={() => {
-                    void deleteBoard({ variables: { id: board.id } });
-                }}
-            />
-        </li>
+        <Draggable draggableId={board.id} index={index}>
+            {(provided) => (
+                <li
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className="border rounded p-2 bg-white flex items-center justify-between"
+                >
+                    <a href={`/boards/${board.id}`} className="font-medium">
+                        {board.name}
+                    </a>
+                    <DropdownMenu
+                        onEdit={() => setEditing(true)}
+                        onDelete={() => {
+                            void deleteBoard({ variables: { id: board.id } });
+                        }}
+                    />
+                </li>
+            )}
+        </Draggable>
     );
 }

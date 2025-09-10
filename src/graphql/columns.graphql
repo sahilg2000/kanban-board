@@ -15,7 +15,7 @@ query GetBoardColumns($board_id: uuid!) {
     }
 }
 
-mutation CreateColumn($board_id: uuid!, $name: String!, $position: float8!) {
+mutation CreateColumn($board_id: uuid!, $name: String!, $position: Int!) {
     insert_columns_one(
         object: { board_id: $board_id, name: $name, position: $position }
     ) {
@@ -34,7 +34,7 @@ mutation UpdateColumnInfo($id: uuid!, $name: String!) {
     }
 }
 
-mutation UpdateColumnPosition($id: uuid!, $position: float8!) {
+mutation UpdateColumnPosition($id: uuid!, $position: Int!) {
     update_columns_by_pk(
         pk_columns: { id: $id }
         _set: { position: $position }

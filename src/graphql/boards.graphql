@@ -1,7 +1,8 @@
 query BoardsList {
-    boards(order_by: { created_at: asc }) {
+    boards(order_by: { position: asc }) {
         id
         name
+        position
     }
 }
 
@@ -23,6 +24,16 @@ mutation UpdateBoard($id: uuid!, $name: String!) {
     update_boards_by_pk(pk_columns: { id: $id }, _set: { name: $name }) {
         id
         name
+    }
+}
+
+mutation UpdateBoardPosition($id: uuid!, $position: Int!) {
+    update_boards_by_pk(
+        pk_columns: { id: $id }
+        _set: { position: $position }
+    ) {
+        id
+        position
     }
 }
 
