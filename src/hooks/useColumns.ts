@@ -1,17 +1,17 @@
 "use client";
-import { useQuery } from "@apollo/client/react";
+import { useSubscription } from "@apollo/client/react";
 import {
     GetBoardColumnsDocument,
-    type GetBoardColumnsQuery,
-    type GetBoardColumnsQueryVariables,
+    type GetBoardColumnsSubscription,
+    type GetBoardColumnsSubscriptionVariables,
 } from "@/graphql/generated";
 
-export type Column = GetBoardColumnsQuery["columns"][number];
+export type Column = GetBoardColumnsSubscription["columns"][number];
 
 export function useColumns(boardId: string) {
-    const { data, loading, error } = useQuery<
-        GetBoardColumnsQuery,
-        GetBoardColumnsQueryVariables
+    const { data, loading, error } = useSubscription<
+        GetBoardColumnsSubscription,
+        GetBoardColumnsSubscriptionVariables
     >(GetBoardColumnsDocument, { variables: { board_id: boardId } });
 
     return {

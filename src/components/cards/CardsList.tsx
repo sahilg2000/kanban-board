@@ -3,13 +3,20 @@ import { useCards } from "@/hooks/useCards";
 import CardItem from "./CardItem";
 import NewCard from "./NewCard";
 import { Droppable } from "@hello-pangea/dnd";
+import type { CardsByColumnSubscription } from "@/graphql/generated";
+type CardRow = CardsByColumnSubscription["cards"][number];
 
-export default function CardsList({ columnId }: { columnId: string }) {
-    const { data: cards, loading, error } = useCards(columnId);
-
+export default function CardsList({
+    columnId,
+    cards: override,
+}: {
+    columnId: string;
+    cards?: CardRow[];
+}) {
+    const { data: serverCards, loading, error } = useCards(columnId);
+    const cards = override ?? serverCards ?? [];
     if (error) return <div className="text-red-500">Error: {error}</div>;
-    if (loading) return <div>Loading cards…</div>;
-
+    if (loading && !override) return <div>Loading cards…</div>;
     const nextPos = cards.length;
 
     return (

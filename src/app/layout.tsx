@@ -1,11 +1,13 @@
+// src/app/layout.tsx
 "use client";
 
 import "./globals.css";
 import { ApolloProvider } from "@apollo/client/react";
 import { client } from "@/lib/apollo-client";
+import AuthTopRight from "@/components/auth/AuthTopRight";
 
 // nhost
-import { NhostProvider } from "@nhost/nextjs";
+import { NhostNextProvider } from "@nhost/nextjs";
 import { nhost } from "@/lib/nhost";
 
 export default function RootLayout({
@@ -16,9 +18,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <NhostProvider nhost={nhost}>
-                    <ApolloProvider client={client}>{children}</ApolloProvider>
-                </NhostProvider>
+                <NhostNextProvider nhost={nhost}>
+                    <ApolloProvider client={client}>
+                        <AuthTopRight />
+                        {children}
+                    </ApolloProvider>
+                </NhostNextProvider>
             </body>
         </html>
     );

@@ -1,4 +1,4 @@
-query CardsByColumn($column_id: uuid!) {
+subscription CardsByColumn($column_id: uuid!) {
     cards(
         where: { column_id: { _eq: $column_id } }
         order_by: { position: asc }
@@ -61,5 +61,12 @@ mutation MoveCard($id: uuid!, $column_id: uuid!, $position: Int!) {
         id
         column_id
         position
+    }
+}
+
+mutation DeleteCard($id: uuid!) {
+    delete_cards_by_pk(id: $id) {
+        id
+        column_id
     }
 }

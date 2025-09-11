@@ -1,4 +1,4 @@
-query GetBoardColumns($board_id: uuid!) {
+subscription GetBoardColumns($board_id: uuid!) {
     columns(
         where: { board_id: { _eq: $board_id } }
         order_by: { position: asc }
@@ -11,6 +11,7 @@ query GetBoardColumns($board_id: uuid!) {
             name
             description
             position
+            column_id
         }
     }
 }

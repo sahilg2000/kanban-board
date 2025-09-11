@@ -31,13 +31,19 @@ export default function CardItem({
 
     return (
         <Draggable draggableId={card.id} index={index}>
-            {(provided) => (
+            {(provided, snapshot) => (
                 <li
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className="border rounded p-2 bg-white"
+                    className={`group rounded-xl border bg-card p-3 transition-shadow
+                            focus-within:ring-2 focus-within:ring-ring/40
+                            cursor-grab active:cursor-grabbing
+                            hover:shadow-md ${
+                                snapshot.isDragging ? "shadow-md" : ""
+                            }`}
                 >
+                    {" "}
                     <div className="flex items-start justify-between gap-2">
                         <h3 className="font-medium text-sm leading-5">
                             {card.name}

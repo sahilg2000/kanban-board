@@ -1,4 +1,4 @@
-query BoardsList {
+subscription BoardsList {
     boards(order_by: { position: asc }) {
         id
         name

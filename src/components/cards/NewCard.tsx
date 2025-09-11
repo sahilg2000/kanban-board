@@ -35,18 +35,24 @@ export default function NewCard({
     }
 
     return (
-        <li className="border rounded p-2">
+        <li className="rounded-xl border bg-card p-3">
             <form
                 onSubmit={onSubmit}
-                className="grid grid-cols-[1fr_auto] gap-2 items-center"
+                className="grid grid-cols-[1fr_auto] items-center gap-2"
             >
                 <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="min-w-0 w-full border rounded px-2 py-1"
+                    className="h-9 min-w-0 w-full rounded-md border border-input bg-background px-3 text-foreground
+                                placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2
+                                focus-visible:ring-ring"
                     placeholder="New card title"
                 />
-                <button className="border rounded px-3 py-1" disabled={loading}>
+                <button
+                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 
+                                text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+                    disabled={loading}
+                >
                     {loading ? "Add…" : "Add"}
                 </button>
             </form>

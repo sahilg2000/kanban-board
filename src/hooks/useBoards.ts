@@ -1,12 +1,15 @@
 "use client";
-import { useQuery } from "@apollo/client/react";
-import { BoardsListDocument, type BoardsListQuery } from "@/graphql/generated";
+import { useSubscription } from "@apollo/client/react";
+import {
+    BoardsListDocument,
+    type BoardsListSubscription,
+} from "@/graphql/generated";
 
-export type Board = BoardsListQuery["boards"][number];
+export type Board = BoardsListSubscription["boards"][number];
 
 export function useBoards() {
     const { data, loading, error } =
-        useQuery<BoardsListQuery>(BoardsListDocument);
+        useSubscription<BoardsListSubscription>(BoardsListDocument);
     return {
         data: data?.boards ?? null,
         loading,

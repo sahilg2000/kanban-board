@@ -1,16 +1,14 @@
-// ensure this is EXACTLY what you query & type
-import { useQuery } from "@apollo/client/react";
+import { useSubscription } from "@apollo/client/react";
 import {
     CardsByColumnDocument,
-    type CardsByColumnQuery,
+    type CardsByColumnSubscription,
 } from "@/graphql/generated";
 
-export type Card = CardsByColumnQuery["cards"][number];
+export type Card = CardsByColumnSubscription["cards"][number];
 
 export function useCards(columnId: string) {
-    const { data, loading, error } = useQuery(CardsByColumnDocument, {
+    const { data, loading, error } = useSubscription(CardsByColumnDocument, {
         variables: { column_id: columnId },
-        fetchPolicy: "cache-and-network",
     });
 
     return {
