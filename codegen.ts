@@ -1,29 +1,29 @@
+// codegen.ts
 import type { CodegenConfig } from "@graphql-codegen/cli";
-import { config as dotenvConfig } from "dotenv";
-dotenvConfig({ path: ".env.local" });
+
+const schemaUrl = process.env.NEXT_PUBLIC_NHOST_GRAPHQL_URL!;
+const adminSecret = process.env.NHOST_ADMIN_SECRET ?? "";
 
 const config: CodegenConfig = {
-    schema: {
-        [process.env.NHOST_GRAPHQL_URL as string]: {
-            headers: {
-                "x-hasura-admin-secret": process.env
-                    .NHOST_ADMIN_SECRET as string,
+    schema: [
+        {
+            [schemaUrl]: {
+                headers: adminSecret
+                    ? { "x-hasura-admin-secret": adminSecret }
+                    : {},
             },
         },
-    },
-    documents: "src/graphql/**/*.graphql",
+    ],
+    documents: ["src/graphql/**/*.graphql"],
     generates: {
         "src/graphql/generated.ts": {
             plugins: [
                 "typescript",
                 "typescript-operations",
-                "typed-document-node",
+                "typescript-react-apollo",
             ],
-            config: {
-                addDocBlocks: false,
-            },
+            config: { withHooks: true },
         },
     },
 };
-
 export default config;
