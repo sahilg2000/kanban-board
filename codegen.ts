@@ -4,7 +4,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 const schemaUrl = process.env.NEXT_PUBLIC_NHOST_GRAPHQL_URL!;
 const adminSecret = process.env.NHOST_ADMIN_SECRET ?? "";
 
-const config: CodegenConfig = {
+const config = {
     schema: [
         {
             [schemaUrl]: {
@@ -22,8 +22,14 @@ const config: CodegenConfig = {
                 "typescript-operations",
                 "typescript-react-apollo",
             ],
-            config: { withHooks: true },
+            config: {
+                withHooks: true,
+                apolloClientVersion: 3,
+                reactApolloVersion: 3,
+                importFrom: "@apollo/client/react",
+            },
         },
     },
-};
+} satisfies CodegenConfig;
+
 export default config;
