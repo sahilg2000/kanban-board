@@ -1,3 +1,5 @@
+"use client";
+
 import "./globals.css";
 import { ApolloProvider } from "@apollo/client/react";
 import { client } from "@/lib/apollo-client";
