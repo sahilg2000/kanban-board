@@ -1,5 +1,6 @@
-// src/app/boards/layout.tsx
 "use client";
+
+import { Suspense } from "react";
 import RequireAuth from "@/components/auth/RequireAuth";
 import BoardsSidebar from "@/components/boards/BoardsSidebar";
 import { usePathname } from "next/navigation";
@@ -9,6 +10,18 @@ export default function BoardsLayout({
 }: {
     children: React.ReactNode;
 }) {
+    return (
+        <RequireAuth>
+            <Suspense>
+                <BoardsLayoutClient>{children}</BoardsLayoutClient>
+            </Suspense>
+        </RequireAuth>
+    );
+}
+
+// layout code
+
+function BoardsLayoutClient({ children }: { children: React.ReactNode }) {
     const path = usePathname(); // changes when /boards/[id] changes
     return (
         <RequireAuth>
