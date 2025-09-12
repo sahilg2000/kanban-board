@@ -1,11 +1,20 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState, FormEvent } from "react";
 import { useSignUpEmailPassword } from "@nhost/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function SignUpPage() {
+export default function Page() {
+    return (
+        <Suspense>
+            <SignUpPage />
+        </Suspense>
+    );
+}
+
+function SignUpPage() {
     const { signUpEmailPassword, isLoading, error, needsEmailVerification } =
         useSignUpEmailPassword();
     const [email, setEmail] = useState("");
