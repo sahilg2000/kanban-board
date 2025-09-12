@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { useSignInEmailPassword, useAuthenticationStatus } from "@nhost/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
