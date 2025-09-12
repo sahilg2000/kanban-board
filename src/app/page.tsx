@@ -1,9 +1,17 @@
 "use client";
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent, Suspense } from "react";
 import { useSignInEmailPassword, useAuthenticationStatus } from "@nhost/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {
+    return (
+        <Suspense>
+            <LoginPage />
+        </Suspense>
+    );
+}
+
+function LoginPage() {
     const r = useRouter();
     const params = useSearchParams();
     const next = params.get("next") || "/boards";

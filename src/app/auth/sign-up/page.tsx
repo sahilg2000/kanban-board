@@ -1,7 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, Suspense } from "react";
 import { useSignUpEmailPassword } from "@nhost/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";

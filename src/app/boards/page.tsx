@@ -1,6 +1,6 @@
-// src/app/boards/page.tsx
 "use client";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, Suspense } from "react";
 import { DragDropContext, Droppable, type DropResult } from "@hello-pangea/dnd";
 import { useApolloClient } from "@apollo/client/react";
 import { useBoards } from "@/hooks/useBoards";
@@ -13,7 +13,15 @@ import {
 
 type Board = BoardsListSubscription["boards"][number];
 
-export default function BoardsPage() {
+export default function Page() {
+    return (
+        <Suspense>
+            <BoardsPage />
+        </Suspense>
+    );
+}
+
+function BoardsPage() {
     const { data, error, loading } = useBoards();
     const client = useApolloClient();
 
