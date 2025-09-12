@@ -3,7 +3,6 @@
 import { useState, FormEvent } from "react";
 import { useSignUpEmailPassword } from "@nhost/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 
 export default function SignUpPage() {
     const { signUpEmailPassword, isLoading, error, needsEmailVerification } =
@@ -66,7 +65,10 @@ export default function SignUpPage() {
                 </button>
 
                 <p className="text-sm">
-                    Have an account? <Link href="/">Sign in</Link>
+                    Have an account?{" "}
+                    <a href="/" className="underline">
+                        Sign in
+                    </a>
                 </p>
             </form>
         </main>
