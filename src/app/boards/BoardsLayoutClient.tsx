@@ -1,5 +1,3 @@
-"use client";
-
 import RequireAuth from "@/components/auth/RequireAuth";
 import BoardsSidebar from "@/components/boards/BoardsSidebar";
 import { usePathname } from "next/navigation";

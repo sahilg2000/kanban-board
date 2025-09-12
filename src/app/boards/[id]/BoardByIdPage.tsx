@@ -1,6 +1,3 @@
-// src/app/boards/[id]/page.tsx
-"use client";
-
 import { useParams } from "next/navigation";
 import { useBoards, type Board } from "@/hooks/useBoards";
 import { ColumnsList } from "@/components/columns/ColumnsList";
